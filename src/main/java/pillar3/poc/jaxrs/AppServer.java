@@ -13,7 +13,7 @@ public class AppServer {
     private int port;
 
     public static void main(String[] args) throws IOException {
-        new AppServer(8042).start();
+        new AppServer(8080).start();
     }
 
     public AppServer(int port) {
@@ -21,7 +21,7 @@ public class AppServer {
     }
 
     public void start() throws IOException {
-        DefaultResourceConfig config = new DefaultResourceConfig(TweetResource.class);
+        DefaultResourceConfig config = new DefaultResourceConfig(TweetResource.class, TwitterLoginResource.class);
 
         httpServer = HttpServerFactory.create(String.format("http://localhost:%d/", port), config);
         httpServer.start();

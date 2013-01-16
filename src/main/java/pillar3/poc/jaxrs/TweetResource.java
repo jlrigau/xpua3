@@ -19,21 +19,13 @@ public class TweetResource {
     private DB tweetDB ;
 
     public TweetResource() throws UnknownHostException {
-        this.tweetDB = new Mongo().getDB("tweetDb");;
-    }
-
-    @GET
-    @Path("/test")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String test() {
-        return "[ { \"elem1\" : \"val1\" } , { \"elem2\" : \"val2\" } ]";
+        this.tweetDB = new Mongo().getDB("tweetDb");
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String find() {
-        String json = JSON.serialize(tweetDB.getCollection("tweets").find());
-        return json;
+        return JSON.serialize(tweetDB.getCollection("tweets").find());
     }
 
     @GET
@@ -41,7 +33,6 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String find(@PathParam("toMatch") String toMatch) {
         Pattern pattern = Pattern.compile(toMatch, Pattern.CASE_INSENSITIVE);
-        String json = JSON.serialize(tweetDB.getCollection("tweets").find(new BasicDBObject("text", pattern)));
-        return json;
+        return JSON.serialize(tweetDB.getCollection("tweets").find(new BasicDBObject("text", pattern)));
     }
 }
