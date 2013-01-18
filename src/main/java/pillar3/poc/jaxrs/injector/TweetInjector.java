@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs;
+package pillar3.poc.jaxrs.injector;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;

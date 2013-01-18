@@ -1,7 +1,10 @@
-package pillar3.poc.jaxrs;
+package pillar3.poc.jaxrs.resource;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.util.JSON;
 
@@ -13,19 +16,22 @@ import javax.ws.rs.core.MediaType;
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;
 
+@Singleton
 @Path("/tweet")
 public class TweetResource {
 
-    private DB tweetDB ;
+    static final String TWEETS_COLLECTION = "tweets";
+    private final DBCollection tweetsCollections;
 
-    public TweetResource() throws UnknownHostException {
-        this.tweetDB = new Mongo().getDB("tweetDb");
+    @Inject
+    public TweetResource(DB tweetDB) throws UnknownHostException {
+        tweetsCollections = tweetDB.getCollection(TWEETS_COLLECTION);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String find() {
-        return JSON.serialize(tweetDB.getCollection("tweets").find());
+        return JSON.serialize(tweetsCollections.find());
     }
 
     @GET
@@ -33,6 +39,6 @@ public class TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String find(@PathParam("toMatch") String toMatch) {
         Pattern pattern = Pattern.compile(toMatch, Pattern.CASE_INSENSITIVE);
-        return JSON.serialize(tweetDB.getCollection("tweets").find(new BasicDBObject("text", pattern)));
+        return JSON.serialize(tweetsCollections.find(new BasicDBObject("text", pattern)));
     }
 }
