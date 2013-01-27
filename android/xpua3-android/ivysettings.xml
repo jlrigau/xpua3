@@ -1,0 +1,11 @@
+<ivysettings>
+    <settings defaultResolver="chain"/>
+    <resolvers>
+        <chain name="chain">
+            <filesystem name="android-compat-libraries" m2compatible="true">
+                <artifact pattern="${sdk.dir}/extras/[organization]/[artifact].[ext]" />
+            </filesystem>
+            <ibiblio name="ibiblio" m2compatible="true" />
+        </chain>
+    </resolvers>
+</ivysettings>

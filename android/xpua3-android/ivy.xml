@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+	<info organisation="com.example" module="ivy-android-example" revision="0.1" />
+	<dependencies>
+        <dependency org="com.fasterxml.jackson.core" name="jackson-core" transitive="false" rev="2.1.3" conf="*->*,!javadoc,!sources" />
+        <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" transitive="false" rev="2.1.2"
+                    conf="*->*,!javadoc,!sources" />
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" transitive="false" rev="2.1.3" conf="*->*,!javadoc,!sources" />
+        <dependency org="android.support.v4" name="android-support-v4" transitive="false" rev="r11" conf="*->*,!javadoc,!sources" />
+        <dependency org="google.gcm.gcm-client.dist" name="gcm" transitive="false" rev="r3" conf="*->*,!javadoc,!sources"
+                />
+	</dependencies>
+</ivy-module>

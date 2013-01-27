@@ -1,0 +1,26 @@
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/gen/com/android/xpua/R.java \
+ : /Users/tomtom/git/android/apps/SlidingMenu/library/res/drawable/defaultshadow.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/drawable/defaultshadowright.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/layout/list.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/layout/shadow.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/layout/slidingmenumain.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/layout/slidingmenumainlist.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/layout/slidingmenurow.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/values/attrs.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/values/colors.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/values/dimen.xml \
+/Users/tomtom/git/android/apps/SlidingMenu/library/res/values/ids.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/drawable/shadow.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/drawable-hdpi/ic_launcher.png \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/drawable-ldpi/ic_launcher.png \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/drawable-mdpi/ic_launcher.png \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/drawable-xhdpi/ic_launcher.png \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/layout/content_frame.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/layout/left_menu_default.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/layout/main.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/layout/menu_frame.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/menu/menu_default.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/values/dimens.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/values/strings.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/res/values/styles.xml \
+/Users/tomtom/git/xke/xpua3/android/xpua3-android/bin/AndroidManifest.xml \
