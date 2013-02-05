@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.resource;
+package pillar3.poc.jaxrs.web.resource;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -10,7 +10,6 @@ import de.flapdoodle.embedmongo.MongoDBRuntime;
 import de.flapdoodle.embedmongo.MongodProcess;
 import de.flapdoodle.embedmongo.config.MongodConfig;
 import org.junit.*;
-import pillar3.poc.jaxrs.AppServer;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -18,7 +17,7 @@ import java.net.UnknownHostException;
 import static com.jayway.restassured.RestAssured.*;
 import static de.flapdoodle.embedmongo.distribution.Version.V2_1_0;
 import static org.hamcrest.Matchers.*;
-import static pillar3.poc.jaxrs.resource.TweetResource.TWEETS_COLLECTION;
+import static pillar3.poc.jaxrs.web.resource.TweetResource.TWEETS_COLLECTION;
 
 public class TweetResourceIntegrationTest {
 

@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs;
+package pillar3.poc.jaxrs.web;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -10,7 +10,7 @@ import org.scribe.oauth.OAuthService;
 
 import java.net.UnknownHostException;
 
-public class AppServerModule extends AbstractModule {
+public class Module extends AbstractModule {
 
     @Override
     protected void configure() {
