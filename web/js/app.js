@@ -19,7 +19,11 @@ require.config({
             'vendor/underscore'
         ],
 
-        'text': 'vendor/text'
+        'bootstrap': 'vendor/bootstrap.min',
+
+        'text': 'vendor/text',
+
+        'async': 'vendor/async'
     },
 
     shim: {
@@ -39,7 +43,8 @@ require.config({
     waitSeconds: 15
 });
 
-require(['jquery', 'filters', 'sorting', 'templating'], function($, filters, sorting, templating) {
-
-    }
-);
+require(['jquery', 'maps', 'search'], function($, maps, search) {
+    var mapCanvas = $('#map_canvas').get(0);
+    maps.addMapToCanvas(mapCanvas);
+    maps.addMarker(48.858165, 2.345186);
+});
