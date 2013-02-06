@@ -11,7 +11,7 @@ public class JerseyApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> classes = new HashSet<>();
+        Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(TwitterLoginResource.class);
         classes.add(LoginResource.class);
         return classes;

@@ -12,7 +12,7 @@ public class User {
 
     public User(DBObject jsonUser) {
         this.login = (String) jsonUser.get("login");
-        this.latitude = (double) jsonUser.get("latitude");
-        this.longitude = (double) jsonUser.get("longitude");
+        this.latitude = (Double) jsonUser.get("latitude");
+        this.longitude = (Double) jsonUser.get("longitude");
     }
 }

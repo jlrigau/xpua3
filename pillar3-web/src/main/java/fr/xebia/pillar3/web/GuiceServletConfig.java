@@ -12,7 +12,7 @@ import java.util.Map;
 public class GuiceServletConfig extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
-        final Map<String, String> params = new HashMap<>();
+        final Map<String, String> params = new HashMap<String, String>();
         params.put("javax.ws.rs.Application", "fr.xebia.pillar3.web.JerseyApplication");
         return Guice.createInjector(
                 new Module(),
