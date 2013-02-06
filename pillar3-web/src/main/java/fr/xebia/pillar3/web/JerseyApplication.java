@@ -1,6 +1,6 @@
 package fr.xebia.pillar3.web;
 
-import fr.xebia.pillar3.web.resource.LoginResource;
+import fr.xebia.pillar3.web.resource.UserResource;
 import fr.xebia.pillar3.web.resource.TwitterLoginResource;
 
 import javax.ws.rs.core.Application;
@@ -13,7 +13,7 @@ public class JerseyApplication extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(TwitterLoginResource.class);
-        classes.add(LoginResource.class);
+        classes.add(UserResource.class);
         return classes;
     }
 }

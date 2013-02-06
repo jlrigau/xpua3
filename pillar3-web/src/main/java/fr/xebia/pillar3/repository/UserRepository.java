@@ -7,6 +7,7 @@ import com.google.code.geocoder.model.GeocoderGeometry;
 import com.google.code.geocoder.model.GeocoderRequest;
 import com.google.code.geocoder.model.GeocoderResult;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -15,17 +16,24 @@ import fr.xebia.pillar3.model.User;
 import java.net.UnknownHostException;
 import java.util.List;
 
+@Singleton
 public class UserRepository {
 
     private final double DEFAULT_LAT = 48.8566140;
-    private final double DEFAULT_LNG = 2.35222190;
 
+    private final double DEFAULT_LNG = 2.35222190;
 
     private final DBCollection userCollection;
 
     @Inject
     public UserRepository(DBCollection users) throws UnknownHostException {
         userCollection = users;
+    }
+
+    public User findByLogin(String login) {
+        DBObject user = userCollection.findOne(new BasicDBObject("login", login));
+
+        return user != null ? new User(user) : null;
     }
 
     public User findOrCreateUser(String login, String city) {
@@ -62,4 +70,5 @@ public class UserRepository {
         searchUser.put("latitude", lat);
         searchUser.put("longitude", lng);
     }
+
 }
