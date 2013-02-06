@@ -10,10 +10,12 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import fr.xebia.pillar3.model.User;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
@@ -70,5 +72,20 @@ public class UserRepository {
         searchUser.put("latitude", lat);
         searchUser.put("longitude", lng);
     }
+
+    public List<User> findFansOf(String artistName) {
+        DBObject query = new BasicDBObject();
+        query.put("artists", artistName);
+
+        List<User> users = new ArrayList<User>();
+
+        DBCursor usersCursor = userCollection.find(query);
+        for (DBObject dbObject : usersCursor) {
+            users.add(new User(dbObject));
+        }
+
+        return users;
+    }
+
 
 }
