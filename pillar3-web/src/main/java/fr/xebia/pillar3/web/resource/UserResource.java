@@ -26,9 +26,7 @@ public class UserResource {
     @Path("/login")
     public Response login(@FormParam("login") String login, @FormParam("city") String city) {
         User user = userRepository.findOrCreateUser(login, city);
-
         String json = new Gson().toJson(user);
-
         return Response.ok(json).build();
     }
 
@@ -38,11 +36,8 @@ public class UserResource {
     public Response addArtist(@CookieParam("login") String login, @PathParam("name") String name) {
         User user = userRepository.findByLogin(login);
         user.addArtist(name);
-
         userRepository.save(user);
-
         String json = new Gson().toJson(user);
-
         return Response.ok(json).build();
     }
 
