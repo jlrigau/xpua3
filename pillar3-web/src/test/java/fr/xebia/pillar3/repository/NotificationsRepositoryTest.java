@@ -3,16 +3,12 @@ package fr.xebia.pillar3.repository;
 import com.google.inject.Inject;
 import com.mongodb.*;
 import fr.xebia.pillar3.GuiceJUnitRunner;
-import fr.xebia.pillar3.model.Notification;
-import fr.xebia.pillar3.web.Module;
 import fr.xebia.pillar3.web.MongoDBRule;
 import fr.xebia.pillar3.web.TestModule;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import java.util.Date;
 import java.util.List;

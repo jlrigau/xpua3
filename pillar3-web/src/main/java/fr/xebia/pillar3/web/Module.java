@@ -22,7 +22,6 @@ public class Module extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(NotificationsRepository.class);
     }
 
     protected DB getDb() throws UnknownHostException {

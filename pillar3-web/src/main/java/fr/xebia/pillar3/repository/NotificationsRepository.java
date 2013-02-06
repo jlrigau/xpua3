@@ -3,13 +3,14 @@ package fr.xebia.pillar3.repository;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mongodb.*;
-import fr.xebia.pillar3.model.Notification;
 import fr.xebia.pillar3.web.Module;
 
+import javax.inject.Singleton;
 import java.util.Date;
 import java.util.List;
 
 
+@Singleton
 public class NotificationsRepository {
     public static int REFRESH_PERIOD_MILLISECONDS = 1000;
 
