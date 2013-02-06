@@ -5,6 +5,7 @@ import com.google.inject.Provides;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
+import com.mongodb.MongoOptions;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.oauth.OAuthService;
@@ -22,7 +23,17 @@ public class Module extends AbstractModule {
 
     @Provides
     public DBCollection createUsersCollection() throws UnknownHostException {
-        return new Mongo().getDB("yawl").getCollection(USERS_COLLECTION);
+        String host = "tempest.mongohq.com";
+        int port = 10052;
+
+        DB db = new Mongo(host, port).getDB("Yloh05kyeaoxxkLK6OXQ");
+
+        String username = "xpua3";
+        String password = "xpua3";
+
+        db.authenticate(username, password.toCharArray());
+
+        return db.getCollection(USERS_COLLECTION);
     }
 
     @Provides
