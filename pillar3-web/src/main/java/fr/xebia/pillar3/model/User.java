@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 
@@ -20,7 +21,10 @@ public class User {
     List<String> artists = Lists.newArrayList();
 
     public User(DBObject dbUser) {
-        this.id = (String) dbUser.get("_id");
+        ObjectId mongoId = (ObjectId) dbUser.get("_id");
+        if (mongoId != null) {
+            this.id = mongoId.toString();
+        }
         this.login = (String) dbUser.get("login");
         this.latitude = (Double) dbUser.get("latitude");
         this.longitude = (Double) dbUser.get("longitude");
