@@ -33,8 +33,7 @@ public class ConcertResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{artistName}")
-    public Response findConcerts(HttpServletRequest request, @PathParam("name") String artistName) {
-        String login = request.getCookies()[0].getValue();
+    public Response findConcerts(@QueryParam("login") String login, @PathParam("name") String artistName) {
         List<Concert> concerts = Lists.newArrayList();
         for (int i = 0; i < Math.random() * 8d; i++) {
             Date date = generateDateInto2NextWeeks().toDate();
