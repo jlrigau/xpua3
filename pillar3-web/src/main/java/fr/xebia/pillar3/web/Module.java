@@ -3,6 +3,7 @@ package fr.xebia.pillar3.web;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
@@ -12,14 +13,16 @@ import java.net.UnknownHostException;
 
 public class Module extends AbstractModule {
 
+    static final String USERS_COLLECTION = "users";
+
     @Override
     protected void configure() {
 
     }
 
     @Provides
-    public DB createMongoDb() throws UnknownHostException {
-        return new Mongo().getDB("tweetDb");
+    public DBCollection createUsersCollection() throws UnknownHostException {
+        return new Mongo().getDB("yawl").getCollection(USERS_COLLECTION);
     }
 
     @Provides

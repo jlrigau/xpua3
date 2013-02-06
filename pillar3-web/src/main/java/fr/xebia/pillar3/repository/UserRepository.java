@@ -8,12 +8,11 @@ import java.net.UnknownHostException;
 
 public class UserRepository {
 
-    static final String TWEETS_COLLECTION = "users";
     private final DBCollection userCollection;
 
     @Inject
-    public UserRepository(DB tweetDB) throws UnknownHostException {
-        userCollection = tweetDB.getCollection(TWEETS_COLLECTION);
+    public UserRepository(DBCollection users) throws UnknownHostException {
+        userCollection = users;
     }
 
     public User findOrCreateUser(String login, String city) {
@@ -25,7 +24,11 @@ public class UserRepository {
             return new User(user);
         } else {
             // save new user
-            return null;
+            searchUser.put("latitude", 50.0);
+            searchUser.put("longitude", 10.0);
+
+            userCollection.save(searchUser);
+            return new User(searchUser);
         }
     }
 }
