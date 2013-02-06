@@ -18,15 +18,33 @@ public class NotificationsRepository {
     @Named(Module.NOTIFS_COLLECTION)
     DBCollection collection;
 
-    public void createNotification(String message) {
-        DBObject notifDbObject = BasicDBObjectBuilder.start("date", new Date()).add("message", message).get();
+    /** passer par les méthodes statiques pour créer les dbobjects */
+    public void add(DBObject notifDbObject) {
         collection.insert(notifDbObject);
     }
 
-    public List<DBObject> getLatest() {
-        Date minDate = new Date(System.currentTimeMillis() - REFRESH_PERIOD_MILLISECONDS);
+    public List<DBObject> getSince(String login, Long since) {
+        Date minDate = new Date(since);
         return collection.find(
-                QueryBuilder.start("date").greaterThan(minDate).get()
+                QueryBuilder.start("date").greaterThan(minDate)
+                        .and("login").notEquals(login).get()
         ).toArray();
+    }
+
+    public static DBObject newSimpleNotification(String login, String message) {
+        return  baseNotificationBuilder(login, "simple")
+                .add("message", message).get();
+    }
+
+    public static DBObject newFavoriteArtistNotification(String login, String artistName) {
+        return  baseNotificationBuilder(login, "favoriteArtist")
+                .add("artist", artistName).get();
+    }
+
+    private static BasicDBObjectBuilder baseNotificationBuilder(String messageType, String login) {
+        return BasicDBObjectBuilder
+                .start("date", new Date())
+                .add("login", login)
+                .add("type", messageType);
     }
 }

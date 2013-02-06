@@ -4,9 +4,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import fr.xebia.pillar3.repository.NotificationsRepository;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,8 +24,8 @@ public class NotificationsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCachedNotifications() {
-        String json = new Gson().toJson(repository.getLatest());
+    public Response getNotifications(@CookieParam("login") String login, @QueryParam("since") Long since) {
+        String json = new Gson().toJson(repository.getSince(login, since));
         return Response.ok(json).build();
     }
 }

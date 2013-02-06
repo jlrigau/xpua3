@@ -69,9 +69,9 @@ public class UserRepository {
         searchUser.put("coordinates", basicDBList);
     }
 
-    public List<User> findFansOf(String artistName) {
+    public List<User> findFansOf(String artistId) {
         DBObject query = new BasicDBObject();
-        query.put("artists", artistName);
+        query.put("artists.id", artistId);
 
         List<User> users = new ArrayList<User>();
 
