@@ -1,10 +1,7 @@
 package fr.xebia.pillar3.web;
 
 
-import fr.xebia.pillar3.web.resource.UserResource;
-import fr.xebia.pillar3.web.resource.ArtistResource;
-import fr.xebia.pillar3.web.resource.TwitterLoginResource;
-import fr.xebia.pillar3.web.resource.NotificationsResource;
+import fr.xebia.pillar3.web.resource.*;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -19,6 +16,7 @@ public class JerseyApplication extends Application {
         classes.add(UserResource.class);
         classes.add(ArtistResource.class);
         classes.add(NotificationsResource.class);
+        classes.add(ConcertResource.class);
         return classes;
     }
 }
