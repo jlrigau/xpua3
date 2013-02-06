@@ -37,8 +37,6 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                         artists[artist.name] = artist;
                         terms.push(artist.name);
                     }
-
-
                     return typeahead(terms);
                 });
             },
@@ -66,7 +64,7 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 dataType: 'jsonp'
 
             });
-
+            $('.simlink').remove()
             $('#artist_name').text(artist.name);
             $('#artist_id').text(artist.artist_id);
             $('#similarity_id').text(artist.similarity_id);
@@ -100,12 +98,15 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
             });
 
             $('#artists_album').html(als);
-            $('#artists_similaire').html('<a href="" onclick="return false" class="simlink">' + artist.similarity + '</a>');
+            $.each(artist.similarity, function (index, item) {
+                $('#artists_similaire').append('<a id=' + artist.similarity_id[index] + ' href="" onclick="return false" class="simlink"><br/>' + item + '</a>');
+            })
+
             $('.simlink').click(function () {
                 var artistreq = {
                     'query': {
                         'match': {
-                            'artist_id': $('#similarity_id').text()
+                            'artist_id': $(this).attr('id')
                         }
                     }
                 }
