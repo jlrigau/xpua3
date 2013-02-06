@@ -20,7 +20,7 @@ public class User {
 
     public double longitude;
 
-    public List<String> artists = Lists.newArrayList();
+    public List<Artist> artists = Lists.newArrayList();
 
     public User(DBObject dbUser) {
         ObjectId mongoId = (ObjectId) dbUser.get("_id");
@@ -37,13 +37,13 @@ public class User {
 
         if(dbArtists != null) {
             for (Object artist : dbArtists) {
-                artists.add((String) artist);
+                artists.add(new Artist((DBObject) artist));
             }
         }
     }
 
-    public void addArtist(String name) {
-        artists.add(name);
+    public void addArtist(String name, String id) {
+        artists.add(new Artist(name, id));
     }
 
     public DBObject toDBOject() {
@@ -61,8 +61,8 @@ public class User {
     private BasicDBList createDBListArtists() {
         BasicDBList dBListArtists = new BasicDBList();
 
-        for (String name : artists) {
-            dBListArtists.add(new BasicDBObject("name", name));
+        for (Artist artist : artists) {
+            dBListArtists.add(new BasicDBObject("name", artist.name));
         }
 
         return dBListArtists;

@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import fr.xebia.pillar3.model.Artist;
 import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.repository.UserRepository;
 
@@ -28,10 +29,10 @@ public class ArtistResource {
     }
 
     @GET
-    @Path("/{artist}/fans")
+    @Path("/{id}/fans")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findFans(@PathParam("artist") String artist) {
-        List<User> fans = userRepository.findFansOf(artist);
+    public Response findFans(@PathParam("id") String id) {
+        List<User> fans = userRepository.findFansOf(id);
         String json = new Gson().toJson(fans);
         return Response.ok(json).build();
     }
@@ -43,11 +44,11 @@ public class ArtistResource {
         List<User> users = userRepository.findUsersNear(longitude, latitude);
         Map<String, Integer> scores = Maps.newHashMap();
         for (User user : users) {
-            for (String artist : user.artists) {
-                if (scores.containsKey(artist)) {
-                    scores.put(artist, scores.get(artist).intValue() + 1);
+            for (Artist artist : user.artists) {
+                if (scores.containsKey(artist.name)) {
+                    scores.put(artist.name, scores.get(artist.name) + 1);
                 } else {
-                    scores.put(artist, 1);
+                    scores.put(artist.name, 1);
                 }
             }
         }
