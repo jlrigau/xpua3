@@ -36,10 +36,6 @@ public class UserResource {
     public Response login(@FormParam("login") String login, @FormParam("city") String city) {
         User user = userRepository.findOrCreateUser(login, city);
 
-        // a supprimer
-        user.updateBadges();
-        userRepository.save(user);
-
         String json = new Gson().toJson(user);
         return Response.ok(json).build();
     }
