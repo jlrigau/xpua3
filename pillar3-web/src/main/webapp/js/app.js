@@ -99,6 +99,11 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
             }
         }
 
+        $badges.show();
+
+        $('#badges-list').show();
+
+
         maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
         maps.addMarker(user.latitude, user.longitude);
 
@@ -121,6 +126,10 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
         $('#artists').hide();
         $('#artistAddFollowing').hide();
+
+        $('#badges-list').hide();
+
+        $('#badges').hide();
 
         $('#map_canvas').hide();
 
