@@ -55,9 +55,13 @@ public class Module extends AbstractModule {
     public DBCollection createNotificationsCollection() throws UnknownHostException {
         DB db = getDb();
         if (db.collectionExists(NOTIFS_COLLECTION)) return db.getCollection(NOTIFS_COLLECTION);
-        else return db.createCollection(NOTIFS_COLLECTION,
-                BasicDBObjectBuilder.start("capped", true)
-                        .add("size", 1000).get());
+        else {
+            DBCollection collection = db.createCollection(NOTIFS_COLLECTION,
+                    BasicDBObjectBuilder.start("capped", true)
+                            .add("size", 1000).get());
+            collection.ensureIndex("date");
+            return collection;
+        }
     }
 
     @Provides

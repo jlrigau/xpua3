@@ -2,9 +2,7 @@ package fr.xebia.pillar3.repository;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import fr.xebia.pillar3.model.Notification;
 import fr.xebia.pillar3.web.Module;
 
@@ -13,6 +11,8 @@ import java.util.List;
 
 
 public class NotificationsRepository {
+    public static int REFRESH_PERIOD_MILLISECONDS = 1000;
+
     @Inject
     @Named(Module.NOTIFS_COLLECTION)
     DBCollection collection;
@@ -22,10 +22,10 @@ public class NotificationsRepository {
         collection.insert(notifDbObject);
     }
 
-    public List<Notification> getLatest() {
-        // TODO gérer cache toutes les x secondes
-
-        // TODO refresh: renvoyer les notifs depuis x secondes
-        return null;
+    public List<DBObject> getLatest() {
+        Date minDate = new Date(System.currentTimeMillis() - REFRESH_PERIOD_MILLISECONDS);
+        return collection.find(
+                QueryBuilder.start("date").greaterThan(minDate).get()
+        ).toArray();
     }
 }

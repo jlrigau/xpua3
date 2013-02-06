@@ -1,9 +1,7 @@
 package fr.xebia.pillar3.repository;
 
 import com.google.inject.Inject;
-import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import fr.xebia.pillar3.GuiceJUnitRunner;
 import fr.xebia.pillar3.model.Notification;
 import fr.xebia.pillar3.web.Module;
@@ -17,6 +15,7 @@ import org.junit.runner.RunWith;
 import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
@@ -32,7 +31,8 @@ public class NotificationsRepositoryTest {
 
     @Before
     public void purgeData() {
-        repository.collection.remove(new BasicDBObject());
+        DBCollection collection = repository.collection;
+        collection.getDB().command(new BasicDBObject("emptycapped", collection.getName()));
     }
 
     @Test
@@ -50,5 +50,22 @@ public class NotificationsRepositoryTest {
 
     @Test
     public void testGetLatest() throws Exception {
+        insertNotification(new Date(), "test");
+        List<DBObject> latests = repository.getLatest();
+        assertThat(latests.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void getLatest_should_not_return_old_notifications() {
+        insertNotification(new Date(0), "too old, should not appear");
+        insertNotification(new Date(), "test");
+        List<DBObject> latests = repository.getLatest();
+        assertThat(latests.size()).isEqualTo(1);
+        assertThat(latests.get(0).get("message")).isEqualTo("test");
+    }
+
+    private void insertNotification(Date date, String message) {
+        DBObject notifDbObject = BasicDBObjectBuilder.start("date", date).add("message", message).get();
+        repository.collection.insert(notifDbObject);
     }
 }
