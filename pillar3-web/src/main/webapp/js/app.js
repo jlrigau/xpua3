@@ -1,6 +1,6 @@
 require.config({
     baseUrl: 'js',
-    
+
     paths: {
         'jquery': [
             'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min',
@@ -46,11 +46,11 @@ require.config({
         'bootstrap': ['jquery']
 
     },
-    
+
     waitSeconds: 15
 });
 
-require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, search) {
+require(['jquery', 'cookie', 'maps', 'search'], function ($, cookien, maps, search) {
     var COOKIE_NAME = "XPUA_3";
 
     var COOKIE_OPTIONS = {
@@ -62,14 +62,14 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
     var mapCanvas = $('#map_canvas').get(0);
 
-    function configureLoginButton (user) {
+    function configureLoginButton(user) {
         // Favorites
         var $favorites = $('#artist-favorites');
 
         $favorites.empty();
 
         for (var i = 0; i < user.artists.length; i++) {
-            $favorites.append('<li><a href="#artists" id="' + user.artists[i].id + '" class="artist"><i class="icon-star"></i>' + user.artists[i].name +'</a></li>');
+            $favorites.append('<li><a href="#artists" id="' + user.artists[i].id + '" class="artist"><i class="icon-star"></i>' + user.artists[i].name + '</a></li>');
         }
 
         var $artist = $('.artist');
@@ -97,7 +97,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
         if (user.badges) {
             for (var i = 0; i < user.badges.length; i++) {
-                $badges.append('<li><a href="#badges"><i class="icon-tag"></i>' + user.badges[i] +'</a></li>');
+                $badges.append('<li><a href="#badges"><i class="icon-tag"></i>' + user.badges[i] + '</a></li>');
             }
         }
 
@@ -124,7 +124,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         });
     }
 
-    function configureLogoutButton () {
+    function configureLogoutButton() {
         $('#artists-list').hide();
         $('#badges-list').hide();
 
@@ -144,7 +144,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
         $('#loginModalBtn').text('Se connecter');
         $('#loginModalBtn').unbind('click');
-        $('#loginModalBtn').click(function(){
+        $('#loginModalBtn').click(function () {
             $('#loginModal').modal();
         });
     }
@@ -163,7 +163,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         var $email = $('#email').val(),
             $city = $('#city').val();
 
-        $.post('/resources/users/login', {login: $email, city:$city}, function (data) {
+        $.post('/resources/users/login', {login: $email, city: $city}, function (data) {
             console.log(data);
             var user = JSON.stringify(data);
             $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
@@ -177,7 +177,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
             $artist_id = $('#artist_id').text(),
             $artist_name = $('#artist_name').text();
 
-        $.post('/resources/users/artist',  {login:$email, id: $artist_id, name: $artist_name}, function (data) {
+        $.post('/resources/users/artist', {login: $email, id: $artist_id, name: $artist_name}, function (data) {
             console.log(data);
             var user = JSON.stringify(data);
             $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
@@ -185,5 +185,37 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         });
 
     });
+
+    var lastUpdated = 0;
+
+    var displayOneNotif = function (notif) {
+        $("#notifications").prepend(
+            $('<li></li>').append(
+                notif.login +
+                    " a ajouté l'artiste " +
+                    notif.artist +
+                    " à ses favoris."
+            )
+        );
+
+    };
+
+
+    var getNotifications = function () {
+
+        $.ajax({
+
+            url: "/resources/notifications?since=" + lastUpdated
+
+        }).done(function (json) {
+                json.forEach(displayOneNotif);
+                // TODO purger les vieilles notifs
+                lastUpdated = new Date().getTime();
+                setTimeout(getNotifications, 5000);
+            });
+
+    };
+
+    getNotifications();
 
 });
