@@ -13,8 +13,8 @@ public class Notification {
     Date date;
     String message;
 
-    public Notification(Date date, String message) {
-        this.date = date;
+    public Notification( String message) {
+        this.date = new Date();
         this.message = message;
     }
 }
