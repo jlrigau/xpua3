@@ -32,9 +32,7 @@ public class User {
         BasicDBList dbArtists = (BasicDBList) dbUser.get("artists");
 
         for (Object artist : dbArtists) {
-            BasicDBObject dbArtist = (BasicDBObject) artist;
-
-            artists.add((String) dbArtist.get("name"));
+            artists.add((String) artist);
         }
     }
 
