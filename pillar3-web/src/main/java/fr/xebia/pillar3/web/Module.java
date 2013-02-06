@@ -6,6 +6,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
 import com.mongodb.MongoOptions;
+import fr.xebia.pillar3.repository.NotificationsRepository;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.oauth.OAuthService;
@@ -15,10 +16,11 @@ import java.net.UnknownHostException;
 public class Module extends AbstractModule {
 
     static final String USERS_COLLECTION = "users";
+    static final String NOTIFS_COLLECTION = "notifications";
 
     @Override
     protected void configure() {
-
+        bind(NotificationsRepository.class);
     }
 
     @Provides
@@ -38,6 +40,11 @@ public class Module extends AbstractModule {
         collection.ensureIndex("artists");
 
         return collection;
+    }
+
+    @Provides
+    public DBCollection createNotificationsCollection() throws UnknownHostException {
+        return new Mongo().getDB("yawl").getCollection(NOTIFS_COLLECTION);
     }
 
     @Provides
