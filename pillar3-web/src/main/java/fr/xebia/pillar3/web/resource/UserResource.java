@@ -33,11 +33,15 @@ public class UserResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/artist")
-    public Response addArtist(@CookieParam("login") String login, @PathParam("name") String name) {
+    public Response addArtist(@CookieParam("login") String login, @PathParam("id") String id, @PathParam("name") String name) {
         User user = userRepository.findByLogin(login);
-        user.addArtist(name);
+
+        user.addArtist(id, name);
+
         userRepository.save(user);
+
         String json = new Gson().toJson(user);
+
         return Response.ok(json).build();
     }
 

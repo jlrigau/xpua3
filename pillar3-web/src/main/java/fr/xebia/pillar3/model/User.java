@@ -42,8 +42,12 @@ public class User {
         }
     }
 
-    public void addArtist(String name, String id) {
-        artists.add(new Artist(name, id));
+    public void addArtist(String id, String name) {
+        Artist artist = new Artist(id, name);
+
+        if (!artists.contains(artist)) {
+            artists.add(artist);
+        }
     }
 
     public DBObject toDBOject() {

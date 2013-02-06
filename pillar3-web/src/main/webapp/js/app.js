@@ -92,7 +92,6 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         });
     }
 
-
     var cookieContent = $.cookie(COOKIE_NAME);
     if (cookieContent) {
         var user = JSON.parse(cookieContent);
@@ -115,6 +114,18 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
     });
 
+    $('#artistAddFollowing').click(function () {
+        var $email = $('#email').val(),
+            $artist_id = $('#artist_id').val(),
+            $artist_name = $('#artist_name').val();
 
+        $.post('/resources/users/artist/' + $artist_name + '/' + $artist_id, {login: $email}, function (data) {
+            console.log(data);
+            var user = JSON.stringify(data);
+            $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
+            configureLoginButton(data);
+        });
+
+    });
 
 });
