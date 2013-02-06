@@ -42,9 +42,7 @@ public class User {
         }
     }
 
-    public void addArtist(String id, String name) {
-        Artist artist = new Artist(id, name);
-
+    public void addArtist(Artist artist) {
         if (!artists.contains(artist)) {
             artists.add(artist);
         }
