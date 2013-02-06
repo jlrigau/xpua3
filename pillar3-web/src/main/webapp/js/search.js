@@ -135,6 +135,17 @@ define(['jquery', 'bootstrap', 'maps', 'jquery', 'cookie'], function ($, bootstr
 
 
             $('#fans').click(function () {
+                var user = JSON.parse($.cookie('XPUA_3'));
+
+                maps.removeMarkers();
+                maps.addMarker(user.latitude, user.longitude);
+
+                $.get('/resources/artists/' + artist.artist_id + '/fans', function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        maps.addMarker(data[i].latitude, data[i].longitude);
+                    }
+                });
+
 
             });
         }
