@@ -6,10 +6,7 @@ import com.google.inject.Singleton;
 import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.repository.UserRepository;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,10 +32,10 @@ public class UserResource {
         return Response.ok(json).build();
     }
 
-    @POST
+    @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/artist")
-    public Response addArtist(@FormParam("login") String login, @FormParam("name") String name) {
+    public Response addArtist(@CookieParam("login") String login, @PathParam("name") String name) {
         User user = userRepository.findByLogin(login);
 
         String json = new Gson().toJson(user);
