@@ -1,4 +1,4 @@
-define(['jquery', 'bootstrap'], function ($, bootstrap) {
+define(['jquery', 'bootstrap', 'maps', 'jquery', 'cookie'], function ($, bootstrap, maps, jquery, cookie) {
 
     return new function () {
 
@@ -115,6 +115,27 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                     artists[artist.name] = artist;
                     up(artist.name)
                 })
+            });
+
+
+            $('#concerts').click(function () {
+
+                var user = JSON.parse($.cookie('XPUA_3'));
+
+                maps.removeMarkers();
+                maps.addMarker(user.latitude, user.longitude);
+
+
+                $.get('/resources/concerts/' + item, {login: user.login}, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        maps.addMarker(data[i].latitude, data[i].longitude);
+                    }
+                });
+            });
+
+
+            $('#fans').click(function () {
+
             });
         }
 

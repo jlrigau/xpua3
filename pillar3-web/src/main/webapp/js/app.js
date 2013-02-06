@@ -63,6 +63,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
     var mapCanvas = $('#map_canvas').get(0);
 
     function configureLoginButton (user) {
+        // Favorites
         var $favorites = $('#artist-favorites');
 
         $favorites.empty();
@@ -74,11 +75,28 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         var $artist = $('.artist');
         if ($artist) {
             $artist.click(function () {
+                var user = JSON.parse($.cookie(COOKIE_NAME));
+
+                maps.removeMarkers();
+                maps.addMarker(user.latitude, user.longitude);
+
                 search.searchArtist($(this).attr('id'));
             });
         }
 
         $('#artists-list').show();
+
+
+        // Badges
+        $badges = $('#badges');
+
+        $badges.empty();
+
+        for (var i = 0; i < user.badges.length; i++) {
+            $badges.append('<li><a href="#badges"><i class="icon-star"></i>' + user.badges[i] +'</a></li>');
+        }
+
+
 
 
         maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);

@@ -5,6 +5,7 @@ define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'], f
     return new function () {
 
         var myMap;
+        var markers = [];
 
         this.addMapToCanvas = function (mapCanvas, lat, lng) {
             var mapOptions = {
@@ -24,6 +25,17 @@ define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'], f
                 map: myMap,
                 title: 'Hello'
             });
+
+            markers.push(marker);
+
+        }
+
+        this.removeMarkers = function () {
+            for (var markerKey in markers) {
+                if (markers.hasOwnProperty(markerKey)) {
+                    markers[markerKey].setMap(null);
+                }
+            }
 
         }
     }
