@@ -77,13 +77,28 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 if (albums[this.release] == undefined) {
                     albums[this.release] = this.release
                 }
+
             })
             var als = '<ul>'
 
+            var i = 0
             $.each(albums, function () {
+                i++;
                 als = als + '<li>'
                 als = als + this;
+                als = als + "<img src='' id='alb_" + i + "'/>";
                 als = als + '</li>'
+                var idx = i
+                $.ajax({
+                    url: 'http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=icon&q=' + ' ' + this,
+                    success: function (data) {
+                        $('#alb_' + idx).attr('src', data.responseData.results[0].url);
+                    },
+                    crossDomain: true,
+                    type: 'GET',
+                    dataType: 'jsonp'
+
+                });
 
             });
             als = als + '</ul>'
