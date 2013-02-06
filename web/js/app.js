@@ -47,4 +47,10 @@ require(['jquery', 'maps', 'search'], function($, maps, search) {
     var mapCanvas = $('#map_canvas').get(0);
     maps.addMapToCanvas(mapCanvas);
     maps.addMarker(48.858165, 2.345186);
+
+
+//    $('#typeahead').bind('keydown', function(event) {
+//        search.update($(this).val());
+//    });
+
 });
