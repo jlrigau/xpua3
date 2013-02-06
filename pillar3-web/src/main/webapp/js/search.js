@@ -48,7 +48,6 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 up(item)
             }
 
-
         });
 
 
@@ -79,15 +78,13 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 }
 
             })
-            var als = '<ul>'
+            var als = '';
 
-            var i = 0
+            var i = 0;
             $.each(albums, function () {
                 i++;
-                als = als + '<li>'
-                als = als + this;
-                als = als + "<img src='' id='alb_" + i + "'/>";
-                als = als + '</li>'
+                als = als + "<img style='width:64px;height:64px;' src='' id='alb_" + i + "'/> &nbsp;";
+                als = als + this + '<br/>';
                 var idx = i
                 $.ajax({
                     url: 'http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=icon&q=' + ' ' + this,
@@ -101,7 +98,7 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 });
 
             });
-            als = als + '</ul>'
+
             $('#artists_album').html(als);
             $('#artists_similaire').html('<a href="" onclick="return false" class="simlink">' + artist.similarity + '</a>');
             $('.simlink').click(function () {
@@ -119,6 +116,26 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 })
             });
         }
+
+
+        this.searchArtist = function (id) {
+
+            var artist = {
+                query: {
+                    match: {
+                        artist_id: id
+                    }
+                }
+            }
+
+            $.post('http://ec2-54-246-72-133.eu-west-1.compute.amazonaws.com:9200/_search', JSON.stringify(artist), function (data) {
+                var artist = data.hits.hits[0]._source;
+                artists[artist.name] = artist;
+                up(artist.name);
+            });
+        }
+
+
     };
 
 });

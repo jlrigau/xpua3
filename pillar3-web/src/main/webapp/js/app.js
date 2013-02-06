@@ -64,6 +64,9 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
     function configureLoginButton (user) {
         var $favorites = $('#artist-favorites');
+
+        $favorites.empty();
+
         for (var i = 0; i < user.artists.length; i++) {
             $favorites.append('<li><a href="#artists" id="' + user.artists[i].id + '" class="artist"><i class="icon-star"></i>' + user.artists[i].name +'</a></li>');
         }
