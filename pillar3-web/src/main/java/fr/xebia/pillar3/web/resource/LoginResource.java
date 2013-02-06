@@ -3,6 +3,7 @@ package fr.xebia.pillar3.web.resource;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.repository.UserRepository;
 
 import javax.ws.rs.FormParam;
@@ -26,7 +27,8 @@ public class LoginResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response find(@FormParam("login") String login, @FormParam("city") String city) {
-        String json = new Gson().toJson(userRepository.findOrCreateUser(login, city));
+        User user = userRepository.findOrCreateUser(login, city);
+        String json = new Gson().toJson(user);
         return Response.ok(json).build();
     }
 }
