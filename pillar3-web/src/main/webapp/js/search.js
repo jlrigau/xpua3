@@ -80,8 +80,25 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
 
         });
 
-    }
-        ;
+
+        this.searchArtist = function (id) {
+
+            var artist = {
+                query: {
+                    match: {
+                        artist_id: id
+                    }
+                }
+            }
+
+            $.post('http://ec2-54-246-72-133.eu-west-1.compute.amazonaws.com:9200/_search', JSON.stringify(artist), function (data) {
+                $('#artist-favorites').append('<li><a href="#artists" id="' + data[i].id + '" class="artist"><i class="icon-star"></i>' + data[i].name +'</a></li>');
+            });
+        }
+
+
+
+    };
 
 })
 ;

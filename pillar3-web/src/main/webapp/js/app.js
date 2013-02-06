@@ -65,13 +65,13 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
     function configureLoginButton (user) {
         var $favorites = $('#artist-favorites');
         for (var i = 0; i < user.artists.length; i++) {
-            $favorites.append('<li><a href="#artists" id="' + user.artists[i] + '" class="artist"><i class="icon-star"></i>' + user.artists[i] +'</a></li>');
+            $favorites.append('<li><a href="#artists" id="' + user.artists[i].id + '" class="artist"><i class="icon-star"></i>' + user.artists[i].name +'</a></li>');
         }
 
         var $artist = $('.artist');
         if ($artist) {
             $artist.click(function () {
-                alert('J aime les alerts');
+                search.searchArtist($(this).attr('id'));
             });
         }
 
