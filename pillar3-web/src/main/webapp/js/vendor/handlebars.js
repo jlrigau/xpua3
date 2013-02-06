@@ -1339,7 +1339,7 @@ Handlebars.JavaScriptCompiler = function() {};
     // On stack, after: return value of blockHelperMissing
     //
     // The purpose of this opcode is to take a block of the form
-    // `{{#foo}}...{{/foo}}`, resolve the value of `foo`, and
+    // `{{#fr.xebia.pillar3.web}}...{{/fr.xebia.pillar3.web}}`, resolve the value of `fr.xebia.pillar3.web`, and
     // replace it on the stack with the result of properly
     // invoking blockHelperMissing.
     blockValue: function() {
@@ -1602,7 +1602,7 @@ Handlebars.JavaScriptCompiler = function() {};
     // On stack, before: hash, inverse, program, params..., ...
     // On stack, after: result of disambiguation
     //
-    // This operation is used when an expression like `{{foo}}`
+    // This operation is used when an expression like `{{fr.xebia.pillar3.web}}`
     // is provided, but we don't know at compile-time whether it
     // is a helper or a path.
     //
