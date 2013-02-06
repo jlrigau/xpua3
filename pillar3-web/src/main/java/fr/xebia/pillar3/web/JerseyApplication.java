@@ -1,7 +1,7 @@
-package pillar3.poc.jaxrs.web;
+package fr.xebia.pillar3.web;
 
-import pillar3.poc.jaxrs.web.resource.TweetResource;
-import pillar3.poc.jaxrs.web.resource.TwitterLoginResource;
+import fr.xebia.pillar3.web.resource.LoginResource;
+import fr.xebia.pillar3.web.resource.TwitterLoginResource;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;
@@ -11,9 +11,9 @@ public class JerseyApplication extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
-        Set<Class<?>> classes = new HashSet<>();
+        Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.add(TwitterLoginResource.class);
-        classes.add(TweetResource.class);
+        classes.add(LoginResource.class);
         return classes;
     }
 }

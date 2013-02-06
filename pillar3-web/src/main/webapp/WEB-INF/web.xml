@@ -6,7 +6,7 @@
     <display-name>poc</display-name>
 
     <listener>
-        <listener-class>pillar3.poc.jaxrs.web.GuiceServletConfig</listener-class>
+        <listener-class>fr.xebia.pillar3.web.GuiceServletConfig</listener-class>
     </listener>
 
     <filter>
