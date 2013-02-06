@@ -85,6 +85,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         }
 
         $('#artists-list').show();
+        $('#badges-list').show();
         $('#artistAddFollowing').show();
 
         // Badges
@@ -95,9 +96,6 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         for (var i = 0; i < user.badges.length; i++) {
             $badges.append('<li><a href="#badges"><i class="icon-star"></i>' + user.badges[i] +'</a></li>');
         }
-
-
-
 
         maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
         maps.addMarker(user.latitude, user.longitude);
@@ -117,6 +115,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
     function configureLogoutButton () {
         $('#artists-list').hide();
+        $('#badges-list').hide();
 
         $('#artists').hide();
         $('#artistAddFollowing').hide();
