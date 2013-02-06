@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.model;
+package fr.xebia.pillar3.model;
 
 import com.mongodb.DBObject;
 

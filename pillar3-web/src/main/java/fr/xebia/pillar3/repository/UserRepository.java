@@ -1,8 +1,8 @@
-package pillar3.poc.jaxrs.repository;
+package fr.xebia.pillar3.repository;
 
 import com.google.inject.Inject;
 import com.mongodb.*;
-import pillar3.poc.jaxrs.model.User;
+import fr.xebia.pillar3.model.User;
 
 import java.net.UnknownHostException;
 

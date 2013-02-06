@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.web;
+package fr.xebia.pillar3.web;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -13,7 +13,7 @@ public class GuiceServletConfig extends GuiceServletContextListener {
     @Override
     protected Injector getInjector() {
         final Map<String, String> params = new HashMap<>();
-        params.put("javax.ws.rs.Application", "pillar3.poc.jaxrs.web.JerseyApplication");
+        params.put("javax.ws.rs.Application", "fr.xebia.pillar3.web.JerseyApplication");
         return Guice.createInjector(
                 new Module(),
                 new ServletModule() {

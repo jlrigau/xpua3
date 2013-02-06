@@ -1,9 +1,9 @@
-package pillar3.poc.jaxrs.web.resource;
+package fr.xebia.pillar3.web.resource;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import pillar3.poc.jaxrs.repository.UserRepository;
+import fr.xebia.pillar3.repository.UserRepository;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;

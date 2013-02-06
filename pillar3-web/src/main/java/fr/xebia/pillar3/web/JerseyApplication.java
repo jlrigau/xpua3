@@ -1,7 +1,7 @@
-package pillar3.poc.jaxrs.web;
+package fr.xebia.pillar3.web;
 
-import pillar3.poc.jaxrs.web.resource.LoginResource;
-import pillar3.poc.jaxrs.web.resource.TwitterLoginResource;
+import fr.xebia.pillar3.web.resource.LoginResource;
+import fr.xebia.pillar3.web.resource.TwitterLoginResource;
 
 import javax.ws.rs.core.Application;
 import java.util.HashSet;

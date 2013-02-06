@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.web.resource;
+package fr.xebia.pillar3.web.resource;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -7,7 +7,7 @@ import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.core.spi.component.ioc.IoCComponentProviderFactory;
 import com.sun.jersey.guice.spi.container.GuiceComponentProviderFactory;
 import com.sun.net.httpserver.HttpServer;
-import pillar3.poc.jaxrs.web.Module;
+import fr.xebia.pillar3.web.Module;
 
 import java.io.IOException;
 

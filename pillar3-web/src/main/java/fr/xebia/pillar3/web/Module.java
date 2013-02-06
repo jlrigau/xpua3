@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.web;
+package fr.xebia.pillar3.web;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
