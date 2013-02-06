@@ -23,12 +23,7 @@ public class Module extends AbstractModule {
 
     @Provides
     public DBCollection createUsersCollection() throws UnknownHostException {
-        DBCollection collection = new Mongo().getDB("yawl").getCollection(USERS_COLLECTION);
-
-        collection.ensureIndex("artists");
-
-        return collection;
-        /*String host = "tempest.mongohq.com";
+        String host = "tempest.mongohq.com";
         int port = 10052;
 
         DB db = new Mongo(host, port).getDB("Yloh05kyeaoxxkLK6OXQ");
@@ -38,7 +33,11 @@ public class Module extends AbstractModule {
 
         db.authenticate(username, password.toCharArray());
 
-        return db.getCollection(USERS_COLLECTION);*/
+        DBCollection collection = db.getCollection(USERS_COLLECTION);
+
+        collection.ensureIndex("artists");
+
+        return collection;
     }
 
     @Provides
