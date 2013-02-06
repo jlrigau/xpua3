@@ -70,10 +70,6 @@
             margin-top: 28px;
         }
 
-        #map_canvas {
-            margin: auto;
-            margin-top: 50px;
-        }
     </style>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -94,16 +90,16 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li class="active">
-                            <a href="/" title="Home">Home</a>
+                            <a href="/" title="Accueil">Accueil</a>
                         </li>
                         <li>
-                            <a href="/artists" title="My artists">My artists</a>
+                            <a href="/artists" title="Mes artistes">Mes artistes</a>
                         </li>
                     </ul>
 
                     <ul class="nav pull-right">
                         <li>
-                            <button class="btn btn-success" href="#">Sign up today</button>
+                            <button id="loginModalBtn" class="btn btn-success">Se connecter</button>
                         </li>
                     </ul>
                 </div>
@@ -126,33 +122,46 @@
         <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>-->
         <!--<small>Someone famous <cite title="Source Title">Source Title</cite></small>-->
     <!--</blockquote>-->
-
-    <div id="map_canvas" style="width:50%; height:50%"></div>
-
-    <div class="container-narrow">
-
-        <hr>
-
-        <div class="row-fluid marketing">
-            <div class="span6">
-                <h4>Subheading</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-                <h4>Subheading</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div class="well">
+                    Artists
+                </div>
             </div>
-
             <div class="span6">
-                <h4>Subheading</h4>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+                <div class="well">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <h4>Subheading</h4>
+                            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-                <h4>Subheading</h4>
-                <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                            <h4>Subheading</h4>
+                            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+                        </div>
+                        <div class="span6">
+                            <h4>Subheading</h4>
+                            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
 
-                <h4>Subheading</h4>
-                <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                            <h4>Subheading</h4>
+                            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+                            <h4>Subheading</h4>
+                            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="">
+                    <div id="map_canvas" style="width:280px; height:250px"></div>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!--<div id="map_canvas" style="width:250px; height:250px; position:absolute; right: 25px; top: 350px;"></div>-->
 
         <hr>
 
@@ -161,6 +170,26 @@
         </div>
 
     </div> <!-- /container -->
+
+    <!-- Modal -->
+    <div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 350px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Se connecter</h3>
+        </div>
+        <div class="modal-body">
+            <input type="text" id="email" placeholder="Email" />
+            <br/>
+            <input type="text" id="city" placeholder="Ville" />
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+            <button id="loginBtn" class="btn btn-primary">Connexion</button>
+        </div>
+    </div>
+
+
+
 
     <script data-main="js/app" src="js/vendor/require.min.js"></script>
 

@@ -7,6 +7,8 @@ require.config({
             'vendor/jquery-1.9.1.min'
         ],
 
+        'cookie': 'vendor/jquery.cookie',
+
         'pubsub': 'vendor/pubsub',
 
         'handlebars': [
@@ -37,20 +39,77 @@ require.config({
 
         'underscore': {
             exports: '_'
-        }
+        },
+
+        'cookie': ['jquery'],
+
+        'bootstrap': ['jquery']
+
     },
     
     waitSeconds: 15
 });
 
-require(['jquery', 'maps', 'search'], function($, maps, search) {
+require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, search) {
+    var COOKIE_NAME = "XPUA_3";
+
+    var COOKIE_OPTIONS = {
+        duration: null, // set null to delete cookie after browser has been closed - in days
+        path: '/',
+        domain: '',
+        secure: false
+    };
+
+    function configureLoginButton (user) {
+        $('#loginModal').modal('hide');
+        $('#loginModalBtn').text(user.login);
+        $('#loginModalBtn').unbind('click');
+        $('#loginModalBtn').click(function () {
+            console.log('Déconnexion');
+            $.cookie(COOKIE_NAME, null, COOKIE_OPTIONS);
+            configureLogoutButton();
+        });
+    }
+
+    function configureLogoutButton () {
+        $('#loginModalBtn').text('Se connecter');
+        $('#loginModalBtn').unbind('click');
+        $('#loginModalBtn').click(function(){
+            $('#loginModal').modal();
+        });
+    }
+
     var mapCanvas = $('#map_canvas').get(0);
-    maps.addMapToCanvas(mapCanvas);
-    maps.addMarker(48.858165, 2.345186);
+
+    var cookieContent = $.cookie(COOKIE_NAME);
+    if (cookieContent) {
+        var user = JSON.parse(cookieContent);
+        maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
+        maps.addMarker(user.latitude, user.longitude);
+        configureLoginButton(user);
+    } else {
+        maps.addMapToCanvas(mapCanvas);
+        maps.addMarker(48.858165, 2.345186);
+        configureLogoutButton();
+    }
 
 
-//    $('#typeahead').bind('keydown', function(event) {
-//        search.update($(this).val());
-//    });
+
+
+
+    $('#loginBtn').click(function () {
+        var $email = $('#email').val(),
+            $city = $('#city').val();
+
+        $.post('/resources/login', {login: $email, city:$city}, function (data) {
+            console.log(data);
+            var user = JSON.stringify(data);
+            $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
+            configureLoginButton(data);
+        });
+
+    });
+
+
 
 });

@@ -6,9 +6,9 @@ define(['async!https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'], f
 
         var myMap;
 
-        this.addMapToCanvas = function (mapCanvas) {
+        this.addMapToCanvas = function (mapCanvas, lat, lng) {
             var mapOptions = {
-                center: new google.maps.LatLng(48.858165, 2.345186),
+                center: new google.maps.LatLng(lat || 48.858165, lng || 2.345186),
                 zoom: 12,
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 disableDoubleClickZoom: true
