@@ -22,9 +22,11 @@ public class User {
 
     public User(DBObject dbUser) {
         ObjectId mongoId = (ObjectId) dbUser.get("_id");
+
         if (mongoId != null) {
             this.id = mongoId.toString();
         }
+
         this.login = (String) dbUser.get("login");
         this.latitude = (Double) dbUser.get("latitude");
         this.longitude = (Double) dbUser.get("longitude");
@@ -45,7 +47,7 @@ public class User {
     public DBObject toDBOject() {
         DBObject dbUser = new BasicDBObject();
 
-        dbUser.put("_id", id);
+        dbUser.put("_id", new ObjectId(id));
         dbUser.put("login", login);
         dbUser.put("latitude", latitude);
         dbUser.put("longitude", longitude);
