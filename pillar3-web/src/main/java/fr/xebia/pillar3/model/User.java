@@ -10,15 +10,15 @@ import java.util.List;
 
 public class User {
 
-    String id;
+    private String id;
 
-    String login;
+    public String login;
 
-    double latitude;
+    public double latitude;
 
-    double longitude;
+    public double longitude;
 
-    List<String> artists = Lists.newArrayList();
+    public List<String> artists = Lists.newArrayList();
 
     public User(DBObject dbUser) {
         ObjectId mongoId = (ObjectId) dbUser.get("_id");

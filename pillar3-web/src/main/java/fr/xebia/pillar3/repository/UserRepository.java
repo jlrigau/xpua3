@@ -85,5 +85,8 @@ public class UserRepository {
         return users;
     }
 
+    public void save(User user) {
+        userCollection.save(user.toDBOject());
+    }
 
 }

@@ -37,6 +37,9 @@ public class UserResource {
     @Path("/artist")
     public Response addArtist(@CookieParam("login") String login, @PathParam("name") String name) {
         User user = userRepository.findByLogin(login);
+        user.addArtist(name);
+
+        userRepository.save(user);
 
         String json = new Gson().toJson(user);
 
