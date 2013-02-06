@@ -1,4 +1,4 @@
-package pillar3.poc.jaxrs.resource;
+package pillar3.poc.jaxrs.web.resource;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

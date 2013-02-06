@@ -1,15 +1,13 @@
-package pillar3.poc.jaxrs;
+package pillar3.poc.jaxrs.web.resource;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.jersey.core.spi.component.ioc.IoCComponentProviderFactory;
 import com.sun.jersey.guice.spi.container.GuiceComponentProviderFactory;
 import com.sun.net.httpserver.HttpServer;
-import pillar3.poc.jaxrs.resource.TweetResource;
-import pillar3.poc.jaxrs.resource.TwitterLoginResource;
+import pillar3.poc.jaxrs.web.Module;
 
 import java.io.IOException;
 
@@ -20,9 +18,9 @@ public class AppServer {
 
     private HttpServer httpServer;
     private int port;
-    private final Module[] modules;
+    private final com.google.inject.Module[] modules;
 
-    public AppServer(int port, Module... modules) {
+    public AppServer(int port, com.google.inject.Module... modules) {
         this.port = port;
         this.modules = modules;
     }
@@ -34,7 +32,7 @@ public class AppServer {
     public void start() throws IOException {
         DefaultResourceConfig config = new DefaultResourceConfig(TweetResource.class, TwitterLoginResource.class);
 
-        Injector injector =  Guice.createInjector(override(new AppServerModule()).with(modules));
+        Injector injector =  Guice.createInjector(override(new Module()).with(modules));
         IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
 
         httpServer = HttpServerFactory.create(String.format("http://localhost:%d/", port), config, ioc);
