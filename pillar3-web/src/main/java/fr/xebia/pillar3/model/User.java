@@ -3,9 +3,11 @@ package fr.xebia.pillar3.model;
 import com.google.common.collect.Lists;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -28,8 +30,8 @@ public class User {
         }
 
         this.login = (String) dbUser.get("login");
-        this.latitude = (Double) dbUser.get("latitude");
-        this.longitude = (Double) dbUser.get("longitude");
+        this.latitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(0);
+        this.longitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(1);
 
         BasicDBList dbArtists = (BasicDBList) dbUser.get("artists");
 
@@ -64,6 +66,14 @@ public class User {
         }
 
         return dBListArtists;
+    }
+
+    public static List<User> toUsers(DBCursor dbCursor) {
+        List<User> users = new ArrayList<User>();
+        for (DBObject dbObject : dbCursor) {
+            users.add(new User(dbObject));
+        }
+        return users;
     }
 
 }

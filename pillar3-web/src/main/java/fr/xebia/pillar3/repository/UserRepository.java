@@ -9,10 +9,7 @@ import com.google.code.geocoder.model.GeocoderResult;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.web.Module;
 
@@ -66,9 +63,10 @@ public class UserRepository {
             lat = geometry.getLocation().getLat().doubleValue();
             lng = geometry.getLocation().getLng().doubleValue();
         }
-
-        searchUser.put("latitude", lat);
-        searchUser.put("longitude", lng);
+        BasicDBList basicDBList = new BasicDBList();
+        basicDBList.add(lng);
+        basicDBList.add(lat);
+        searchUser.put("coordinates", basicDBList);
     }
 
     public List<User> findFansOf(String artistName) {
@@ -84,9 +82,15 @@ public class UserRepository {
 
         return users;
     }
-
     public void save(User user) {
         userCollection.save(user.toDBOject());
+    }
+
+    public List<User> findUsersNear(String longitude, String latitude) {
+        DBObject query = new BasicDBObject();
+        query.put("coordinates", new BasicDBObject("$near", new Double[] {Double.valueOf(longitude), Double.valueOf(latitude)}));
+        DBCursor dbCursor = userCollection.find(query);
+        return User.toUsers(dbCursor);
     }
 
 }

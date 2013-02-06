@@ -3,11 +3,7 @@ package fr.xebia.pillar3.web;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
-import com.mongodb.BasicDBObjectBuilder;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
-import com.mongodb.MongoOptions;
+import com.mongodb.*;
 import fr.xebia.pillar3.repository.NotificationsRepository;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
@@ -25,7 +21,7 @@ public class Module extends AbstractModule {
     }
 
     protected DB getDb() throws UnknownHostException {
-        if (System.getProperty("XPUA_ENV") == "DEV") {
+        if (System.getProperty("XPUA_ENV") != "DEV") {
             return new Mongo().getDB("yawl");
         } else {
             String host = "tempest.mongohq.com";
@@ -46,6 +42,7 @@ public class Module extends AbstractModule {
     public DBCollection createUsersCollection() throws UnknownHostException {
         DBCollection collection = getDb().getCollection(USERS_COLLECTION);
         collection.ensureIndex("artists");
+        collection.ensureIndex( new BasicDBObject("coordinates", "2d"));
         return collection;
     }
 
