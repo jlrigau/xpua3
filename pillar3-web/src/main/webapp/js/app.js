@@ -134,11 +134,11 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
     });
 
     $('#artistAddFollowing').click(function () {
-        var $email = $('#email').val(),
-            $artist_id = $('#artist_id').val(),
-            $artist_name = $('#artist_name').val();
+        var $email = JSON.parse(cookieContent).login,
+            $artist_id = $('#artist_id').text(),
+            $artist_name = $('#artist_name').text();
 
-        $.post('/resources/users/artist/' + $artist_name + '/' + $artist_id, {login: $email}, function (data) {
+        $.post('/resources/users/artist',  {login:$email, id: $artist_id, name: $artist_name}, function (data) {
             console.log(data);
             var user = JSON.stringify(data);
             $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);

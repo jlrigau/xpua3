@@ -78,7 +78,7 @@ public class User {
         BasicDBList dBListArtists = new BasicDBList();
 
         for (Artist artist : artists) {
-            dBListArtists.add(new BasicDBObject("name", artist.name));
+            dBListArtists.add(artist.toDBOject());
         }
 
         return dBListArtists;

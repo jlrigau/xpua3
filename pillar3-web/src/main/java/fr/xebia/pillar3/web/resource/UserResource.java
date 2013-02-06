@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.mongodb.DBObject;
+import com.sun.jersey.api.client.ClientRequest;
 import fr.xebia.pillar3.model.Artist;
 import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.repository.NotificationsRepository;
@@ -43,10 +44,10 @@ public class UserResource {
         return Response.ok(json).build();
     }
 
-    @PUT
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/artist")
-    public Response addArtist(@CookieParam("login") String login, @PathParam("id") String id, @PathParam("name") String name) {
+    public Response addArtist(@FormParam("login") String login, @FormParam("id") String id, @FormParam("name") String name) {
         User user = userRepository.findByLogin(login);
 
         user.addArtist(new Artist(id, name));

@@ -1,6 +1,8 @@
 package fr.xebia.pillar3.model;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
 
 public class Artist {
 
@@ -13,9 +15,18 @@ public class Artist {
         this.name = (String) artist.get("name");
     }
 
-    public Artist(String name, String id) {
+    public Artist(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public DBObject toDBOject() {
+        DBObject dbArtist = new BasicDBObject();
+
+        dbArtist.put("id", id);
+        dbArtist.put("name", name);
+
+        return dbArtist;
     }
 
     @Override
