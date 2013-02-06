@@ -60,7 +60,16 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         secure: false
     };
 
+    var mapCanvas = $('#map_canvas').get(0);
+
     function configureLoginButton (user) {
+        $('#artists-list').show();
+
+        maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
+        maps.addMarker(user.latitude, user.longitude);
+
+        $('#map_canvas').show();
+
         $('#loginModal').modal('hide');
         $('#loginModalBtn').text(user.login);
         $('#loginModalBtn').unbind('click');
@@ -72,6 +81,10 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
     }
 
     function configureLogoutButton () {
+        $('#artists-list').hide();
+
+        $('#map_canvas').hide();
+
         $('#loginModalBtn').text('Se connecter');
         $('#loginModalBtn').unbind('click');
         $('#loginModalBtn').click(function(){
@@ -79,29 +92,21 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         });
     }
 
-    var mapCanvas = $('#map_canvas').get(0);
 
     var cookieContent = $.cookie(COOKIE_NAME);
     if (cookieContent) {
         var user = JSON.parse(cookieContent);
-        maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
-        maps.addMarker(user.latitude, user.longitude);
         configureLoginButton(user);
     } else {
-        maps.addMapToCanvas(mapCanvas);
-        maps.addMarker(48.858165, 2.345186);
         configureLogoutButton();
     }
-
-
-
 
 
     $('#loginBtn').click(function () {
         var $email = $('#email').val(),
             $city = $('#city').val();
 
-        $.post('/resources/login', {login: $email, city:$city}, function (data) {
+        $.post('/resources/users/login', {login: $email, city:$city}, function (data) {
             console.log(data);
             var user = JSON.stringify(data);
             $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
