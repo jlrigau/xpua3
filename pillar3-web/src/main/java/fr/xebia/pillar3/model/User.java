@@ -30,8 +30,8 @@ public class User {
         }
 
         this.login = (String) dbUser.get("login");
-        this.latitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(0);
-        this.longitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(1);
+        this.longitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(0);
+        this.latitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(1);
 
         BasicDBList dbArtists = (BasicDBList) dbUser.get("artists");
 
