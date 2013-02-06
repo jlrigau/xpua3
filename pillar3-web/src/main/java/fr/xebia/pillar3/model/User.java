@@ -65,13 +65,21 @@ public class User {
 
         dbUser.put("_id", new ObjectId(id));
         dbUser.put("login", login);
-        dbUser.put("latitude", latitude);
-        dbUser.put("longitude", longitude);
+        dbUser.put("coordinates", createDBCoordinates());
         dbUser.put("artists", createDBListArtists());
         dbUser.put("badges", createDBListBadges());
 
 
         return dbUser;
+    }
+
+    private DBObject createDBCoordinates() {
+        BasicDBList dbList = new BasicDBList();
+
+        dbList.add(longitude);
+        dbList.add(latitude);
+
+        return dbList;
     }
 
     private BasicDBList createDBListArtists() {
