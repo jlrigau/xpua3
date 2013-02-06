@@ -24,8 +24,8 @@ public class UserRepository {
             return new User(user);
         } else {
             // save new user
-            searchUser.put("latitude", 50.0);
-            searchUser.put("longitude", 10.0);
+            searchUser.put("latitude", 50.0d);
+            searchUser.put("longitude", 10.0d);
 
             userCollection.save(searchUser);
             return new User(searchUser);
