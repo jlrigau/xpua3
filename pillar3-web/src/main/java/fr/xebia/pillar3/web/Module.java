@@ -21,7 +21,7 @@ public class Module extends AbstractModule {
     }
 
     protected DB getDb() throws UnknownHostException {
-        if (System.getProperty("XPUA_ENV") == "DEV") {
+        if ("DEV".equals(System.getProperty("XPUA_ENV"))) {
             return new Mongo().getDB("yawl");
         } else {
             String host = "tempest.mongohq.com";
