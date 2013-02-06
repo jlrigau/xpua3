@@ -12,8 +12,6 @@ import java.util.List;
 
 @Singleton
 public class NotificationsRepository {
-    public static int REFRESH_PERIOD_MILLISECONDS = 1000;
-
     @Inject
     @Named(Module.NOTIFS_COLLECTION)
     DBCollection collection;
@@ -41,7 +39,7 @@ public class NotificationsRepository {
                 .add("artist", artistName).get();
     }
 
-    private static BasicDBObjectBuilder baseNotificationBuilder(String messageType, String login) {
+    private static BasicDBObjectBuilder baseNotificationBuilder(String login, String messageType) {
         return BasicDBObjectBuilder
                 .start("date", new Date())
                 .add("login", login)

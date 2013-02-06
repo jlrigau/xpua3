@@ -1,6 +1,6 @@
 require.config({
     baseUrl: 'js',
-    
+
     paths: {
         'jquery': [
             'http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min',
@@ -46,11 +46,11 @@ require.config({
         'bootstrap': ['jquery']
 
     },
-    
+
     waitSeconds: 15
 });
 
-require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, search) {
+require(['jquery', 'cookie', 'maps', 'search'], function ($, cookien, maps, search) {
     var COOKIE_NAME = "XPUA_3";
 
     var COOKIE_OPTIONS = {
@@ -113,7 +113,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         });
     }
 
-    function configureLogoutButton () {
+    function configureLogoutButton() {
         $('#artists-list').hide();
         $('#badges-list').hide();
 
@@ -124,7 +124,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
         $('#loginModalBtn').text('Se connecter');
         $('#loginModalBtn').unbind('click');
-        $('#loginModalBtn').click(function(){
+        $('#loginModalBtn').click(function () {
             $('#loginModal').modal();
         });
     }
@@ -143,7 +143,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         var $email = $('#email').val(),
             $city = $('#city').val();
 
-        $.post('/resources/users/login', {login: $email, city:$city}, function (data) {
+        $.post('/resources/users/login', {login: $email, city: $city}, function (data) {
             console.log(data);
             var user = JSON.stringify(data);
             $.cookie(COOKIE_NAME, user, COOKIE_OPTIONS);
@@ -166,4 +166,30 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
     });
 
+    var lastUpdated = 0;
+    var displayOneNotif = function (notif) {
+        $("#notifications").prepend(
+            $('<li></li>').append(
+                notif.login +
+                    " a ajouté l'artiste " +
+                    notif.artist +
+                    " à ses favoris."
+            )
+        );
+    };
+
+    var getNotifications = function () {
+        $.ajax({
+            url: "/resources/notifications?since=" + lastUpdated
+        }).done(function (json) {
+                json.forEach(displayOneNotif);
+                // TODO purger les vieilles notifs
+
+                // timezone !!!
+                lastUpdated = new Date().getTime() + 6 * 3600 * 1000;
+
+                setTimeout(getNotifications, 5000);
+            });
+    };
+    getNotifications();
 });

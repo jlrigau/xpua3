@@ -54,7 +54,7 @@ public class Module extends AbstractModule {
         else {
             DBCollection collection = db.createCollection(NOTIFS_COLLECTION,
                     BasicDBObjectBuilder.start("capped", true)
-                            .add("size", 1000).get());
+                            .add("size", 20).get());
             collection.ensureIndex("date");
             return collection;
         }
