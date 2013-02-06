@@ -2,22 +2,24 @@ package pillar3.poc.jaxrs.web.resource;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
-import com.mongodb.util.JSON;
 import de.flapdoodle.embedmongo.MongoDBRuntime;
 import de.flapdoodle.embedmongo.MongodProcess;
 import de.flapdoodle.embedmongo.config.MongodConfig;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-import static com.jayway.restassured.RestAssured.*;
+import static com.jayway.restassured.RestAssured.given;
 import static de.flapdoodle.embedmongo.distribution.Version.V2_1_0;
-import static org.hamcrest.Matchers.*;
-import static pillar3.poc.jaxrs.web.resource.TweetResource.TWEETS_COLLECTION;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+
 
 public class TweetResourceIntegrationTest {
 
@@ -85,6 +87,6 @@ public class TweetResourceIntegrationTest {
     }
 
     private void injectTweetAsJson(String json) throws UnknownHostException {
-        tweetDB.getCollection(TWEETS_COLLECTION).insert((BasicDBObject) JSON.parse(json));
+        //tweetDB.getCollection(TWEETS_COLLECTION).insert((BasicDBObject) JSON.parse(json));
     }
 }

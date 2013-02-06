@@ -1,6 +1,6 @@
 package pillar3.poc.jaxrs.web;
 
-import pillar3.poc.jaxrs.web.resource.TweetResource;
+import pillar3.poc.jaxrs.web.resource.LoginResource;
 import pillar3.poc.jaxrs.web.resource.TwitterLoginResource;
 
 import javax.ws.rs.core.Application;
@@ -13,7 +13,7 @@ public class JerseyApplication extends Application {
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(TwitterLoginResource.class);
-        classes.add(TweetResource.class);
+        classes.add(LoginResource.class);
         return classes;
     }
 }

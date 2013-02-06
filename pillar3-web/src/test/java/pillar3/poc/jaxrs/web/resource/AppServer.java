@@ -30,7 +30,7 @@ public class AppServer {
     }
 
     public void start() throws IOException {
-        DefaultResourceConfig config = new DefaultResourceConfig(TweetResource.class, TwitterLoginResource.class);
+        DefaultResourceConfig config = new DefaultResourceConfig(LoginResource.class, TwitterLoginResource.class);
 
         Injector injector =  Guice.createInjector(override(new Module()).with(modules));
         IoCComponentProviderFactory ioc = new GuiceComponentProviderFactory(config, injector);
