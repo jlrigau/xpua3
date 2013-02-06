@@ -34,6 +34,11 @@ public class UserResource {
     @Path("/login")
     public Response login(@FormParam("login") String login, @FormParam("city") String city) {
         User user = userRepository.findOrCreateUser(login, city);
+
+        // a supprimer
+        user.updateBadges();
+        userRepository.save(user);
+
         String json = new Gson().toJson(user);
         return Response.ok(json).build();
     }
@@ -45,6 +50,8 @@ public class UserResource {
         User user = userRepository.findByLogin(login);
 
         user.addArtist(new Artist(id, name));
+
+        user.updateBadges();
 
         userRepository.save(user);
         notificationsRepository.add(newFavoriteArtistNotification(login, name));

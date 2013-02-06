@@ -1,6 +1,5 @@
 package fr.xebia.pillar3.model;
 
-import com.google.common.collect.Lists;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
@@ -9,6 +8,10 @@ import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 
 public class User {
 
@@ -20,7 +23,9 @@ public class User {
 
     public double longitude;
 
-    public List<Artist> artists = Lists.newArrayList();
+    public List<Artist> artists = newArrayList();
+
+    public Set<String> badges = newHashSet();
 
     public User(DBObject dbUser) {
         ObjectId mongoId = (ObjectId) dbUser.get("_id");
@@ -30,14 +35,21 @@ public class User {
         }
 
         this.login = (String) dbUser.get("login");
-        this.longitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(0);
-        this.latitude = (Double) ((BasicDBList)dbUser.get("coordinates")).get(1);
+        this.longitude = (Double) ((BasicDBList) dbUser.get("coordinates")).get(0);
+        this.latitude = (Double) ((BasicDBList) dbUser.get("coordinates")).get(1);
 
         BasicDBList dbArtists = (BasicDBList) dbUser.get("artists");
 
-        if(dbArtists != null) {
+        if (dbArtists != null) {
             for (Object artist : dbArtists) {
                 artists.add(new Artist((DBObject) artist));
+            }
+        }
+
+        BasicDBList dbBadges = (BasicDBList) dbUser.get("badges");
+        if (dbBadges != null) {
+            for (Object badge : dbBadges) {
+                badges.add((String) badge);
             }
         }
     }
@@ -56,6 +68,8 @@ public class User {
         dbUser.put("latitude", latitude);
         dbUser.put("longitude", longitude);
         dbUser.put("artists", createDBListArtists());
+        dbUser.put("badges", createDBListBadges());
+
 
         return dbUser;
     }
@@ -70,6 +84,16 @@ public class User {
         return dBListArtists;
     }
 
+    private BasicDBList createDBListBadges() {
+        BasicDBList dBListBadges = new BasicDBList();
+
+        for (String badge : badges) {
+            dBListBadges.add(badge);
+        }
+
+        return dBListBadges;
+    }
+
     public static List<User> toUsers(DBCursor dbCursor) {
         List<User> users = new ArrayList<User>();
         for (DBObject dbObject : dbCursor) {
@@ -78,4 +102,22 @@ public class User {
         return users;
     }
 
+    public void updateBadges() {
+        List<String> artistsId = newArrayList();
+
+        for (Artist artist : artists) {
+            artistsId.add(artist.id);
+        }
+
+        List<String> start80Artists = newArrayList("ARBEOHF1187B9B044D");
+        List<String> discofanArtists = newArrayList("AR23C041187FB4D534", "ARBEOHF1187B9B044D");
+
+        if (artistsId.containsAll(start80Artists)) {
+            this.badges.add("start80");
+        }
+
+        if (artistsId.containsAll(discofanArtists)) {
+            this.badges.add("discoFan");
+        }
+    }
 }
