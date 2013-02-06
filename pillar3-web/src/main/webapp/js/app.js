@@ -87,6 +87,8 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         $('#artists-list').show();
         $('#badges-list').show();
         $('#artistAddFollowing').show();
+        $('#concerts').show();
+        $('#fans').show();
 
         // Badges
         $badges = $('#badges');
@@ -102,6 +104,8 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         $badges.show();
 
         $('#badges-list').show();
+
+        $('#notiftif').show();
 
 
         maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
@@ -126,10 +130,15 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
 
         $('#artists').hide();
         $('#artistAddFollowing').hide();
+        $('#concerts').hide();
+        $('#fans').hide();
 
         $('#badges-list').hide();
 
         $('#badges').hide();
+
+        $('#notiftif').hide();
+
 
         $('#map_canvas').hide();
 
