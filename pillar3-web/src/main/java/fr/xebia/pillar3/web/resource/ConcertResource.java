@@ -9,6 +9,7 @@ import fr.xebia.pillar3.model.User;
 import fr.xebia.pillar3.repository.UserRepository;
 import org.joda.time.DateTime;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -20,7 +21,8 @@ import java.util.Random;
 @Path("/concerts")
 public class ConcertResource {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
     private Random random = new Random();
 
     @Inject
@@ -31,9 +33,10 @@ public class ConcertResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{artistName}")
-    public Response findConcerts(@CookieParam("login") String login, @PathParam("name") String artistName) {
+    public Response findConcerts(HttpServletRequest request, @PathParam("name") String artistName) {
+        String login = request.getCookies()[0].getValue();
         List<Concert> concerts = Lists.newArrayList();
-        for (int i = 0; i < random.nextInt() % 15; i++) {
+        for (int i = 0; i < Math.random() * 8d; i++) {
             Date date = generateDateInto2NextWeeks().toDate();
             User user = userRepository.findByLogin(login);
             double latitude;
