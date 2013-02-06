@@ -44,9 +44,8 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
             },
 
             updater: function (item) {
-                $('#typeahead').val(item);
                 var artist = artists[item];
-                 $('#artists').show();
+                $('#artists').show();
                 $.ajax({
                     url: 'http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=small&imgtype=face&q=' + artist.name,
                     success: function (data) {
@@ -74,6 +73,8 @@ define(['jquery', 'bootstrap'], function ($, bootstrap) {
                 });
                 $('#artists_album').text(als);
                 $('#artists_similaire').text(artist.similarity);
+
+                $('#typeahead').val(item);
             }
 
 
