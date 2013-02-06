@@ -93,8 +93,10 @@ require(['jquery', 'cookie', 'maps', 'search'], function ($, cookien, maps, sear
 
         $badges.empty();
 
-        for (var i = 0; i < user.badges.length; i++) {
-            $badges.append('<li><a href="#badges"><i class="icon-star"></i>' + user.badges[i] +'</a></li>');
+        if (user.badges) {
+            for (var i = 0; i < user.badges.length; i++) {
+                $badges.append('<li><a href="#badges"><i class="icon-star"></i>' + user.badges[i] +'</a></li>');
+            }
         }
 
         maps.addMapToCanvas(mapCanvas, user.latitude, user.longitude);
