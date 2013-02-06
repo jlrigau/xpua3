@@ -85,7 +85,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         }
 
         $('#artists-list').show();
-
+        $('#artistAddFollowing').show();
 
         // Badges
         $badges = $('#badges');
@@ -119,6 +119,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
         $('#artists-list').hide();
 
         $('#artists').hide();
+        $('#artistAddFollowing').hide();
 
         $('#map_canvas').hide();
 
@@ -132,6 +133,7 @@ require(['jquery', 'cookie', 'maps', 'search'], function($, cookien, maps, searc
     var cookieContent = $.cookie(COOKIE_NAME);
     if (cookieContent) {
         var user = JSON.parse(cookieContent);
+
         configureLoginButton(user);
     } else {
         configureLogoutButton();
