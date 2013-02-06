@@ -2,6 +2,8 @@ package fr.xebia.pillar3.web;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
+import com.mongodb.BasicDBObjectBuilder;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.Mongo;
@@ -15,36 +17,47 @@ import java.net.UnknownHostException;
 
 public class Module extends AbstractModule {
 
-    static final String USERS_COLLECTION = "users";
-    static final String NOTIFS_COLLECTION = "notifications";
+    public static final String USERS_COLLECTION = "users";
+    public static final String NOTIFS_COLLECTION = "notifications";
 
     @Override
     protected void configure() {
         bind(NotificationsRepository.class);
     }
 
+    protected DB getDb() throws UnknownHostException {
+        if (System.getProperty("XPUA_ENV") == "DEV") {
+            return new Mongo().getDB("yawl");
+        } else {
+            String host = "tempest.mongohq.com";
+            int port = 10052;
+
+            DB db = new Mongo(host, port).getDB("Yloh05kyeaoxxkLK6OXQ");
+
+            String username = "xpua3";
+            String password = "xpua3";
+
+            db.authenticate(username, password.toCharArray());
+            return db;
+        }
+    }
+
     @Provides
+    @Named(USERS_COLLECTION)
     public DBCollection createUsersCollection() throws UnknownHostException {
-        String host = "tempest.mongohq.com";
-        int port = 10052;
-
-        DB db = new Mongo(host, port).getDB("Yloh05kyeaoxxkLK6OXQ");
-
-        String username = "xpua3";
-        String password = "xpua3";
-
-        db.authenticate(username, password.toCharArray());
-
-        DBCollection collection = db.getCollection(USERS_COLLECTION);
-
+        DBCollection collection = getDb().getCollection(USERS_COLLECTION);
         collection.ensureIndex("artists");
-
         return collection;
     }
 
     @Provides
+    @Named(NOTIFS_COLLECTION)
     public DBCollection createNotificationsCollection() throws UnknownHostException {
-        return new Mongo().getDB("yawl").getCollection(NOTIFS_COLLECTION);
+        DB db = getDb();
+        if (db.collectionExists(NOTIFS_COLLECTION)) return db.getCollection(NOTIFS_COLLECTION);
+        else return db.createCollection(NOTIFS_COLLECTION,
+                BasicDBObjectBuilder.start("capped", true)
+                        .add("size", 1000).get());
     }
 
     @Provides
