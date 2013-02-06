@@ -29,6 +29,7 @@ public class NotificationsRepositoryTest {
     public void purgeData() {
         DBCollection collection = repository.collection;
         collection.getDB().command(new BasicDBObject("emptycapped", collection.getName()));
+        assertThat(collection.count()).isEqualTo(0);
     }
 
     @Test
@@ -38,30 +39,27 @@ public class NotificationsRepositoryTest {
 
     @Test
     public void testCreateNotification() throws Exception {
+        final String login = "Nick";
         final String msgNotif = "Artiste Jonny ajouté !";
         final long oldCount = repository.collection.count();
-        repository.createNotification(msgNotif);
+        repository.add(NotificationsRepository.newSimpleNotification(login, msgNotif));
         assertThat(repository.collection.count()).isEqualTo(oldCount + 1);
     }
 
     @Test
-    public void testGetLatest() throws Exception {
-        insertNotification(new Date(), "test");
-        List<DBObject> latests = repository.getLatest();
-        assertThat(latests.size()).isEqualTo(1);
-    }
-
-    @Test
     public void getLatest_should_not_return_old_notifications() {
-        insertNotification(new Date(0), "too old, should not appear");
-        insertNotification(new Date(), "test");
-        List<DBObject> latests = repository.getLatest();
+        Date date = new Date();
+        Long since = date.getTime();
+        insertNotification(new Date(since-1), "too old, should not appear", "nick");
+        insertNotification(new Date(since+1), "test", "nick");
+        insertNotification(new Date(since+1), "test", "other");
+        List<DBObject> latests = repository.getSince("other", since);
         assertThat(latests.size()).isEqualTo(1);
         assertThat(latests.get(0).get("message")).isEqualTo("test");
     }
 
-    private void insertNotification(Date date, String message) {
-        DBObject notifDbObject = BasicDBObjectBuilder.start("date", date).add("message", message).get();
+    private void insertNotification(Date date, String message, String login) {
+        DBObject notifDbObject = BasicDBObjectBuilder.start("date", date).add("message", message).add("login", login).get();
         repository.collection.insert(notifDbObject);
     }
 }
